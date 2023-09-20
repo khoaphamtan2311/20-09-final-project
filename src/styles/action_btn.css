@@ -1,0 +1,35 @@
+.action-btn {
+  transition-timing-function: ease-in-out;
+  border: 2px solid var(--action-btn-color);
+  white-space: nowrap;
+  color: var(--action-btn-color);
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  background-color: transparent;
+  touch-action: manipulation;
+  flex-shrink: 0;
+  padding: 0;
+  min-width: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 34px;
+  user-select: none;
+  align-items: center;
+  cursor: pointer;
+  outline-style: none;
+  font-weight: 600;
+  flex-direction: row;
+  position: relative;
+  z-index: 0;
+  transition-duration: 0.1s;
+  width: 104px;
+  max-width: 100%;
+  flex-basis: 104px;
+  transition-property: transform;
+}
+
+.action-btn:hover {
+  color: var(--action-btn-color-hover);
+  border-color: var(--action-btn-color-hover);
+}

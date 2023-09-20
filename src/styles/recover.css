@@ -1,0 +1,6 @@
+.recover-form {
+  background-color: var(--input);
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+}

@@ -1,0 +1,20 @@
+.user-card_line {
+  width: 80%;
+  height: 1px;
+  background-color: var(--border-bottom-color);
+  align-content: end;
+}
+.user-link {
+  text-transform: none;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+.user-link:hover {
+  color: var(--text-color);
+}
+
+.user-link span {
+  font-size: 15px;
+}
