@@ -22,7 +22,6 @@ const Post = () => {
       setPost(newArr);
     }
   }, [detailPost, dispatch, id, auth]);
-  console.log(post);
   return (
     <div className="d-flex">
       <div className="col-md-3"></div>
