@@ -4,6 +4,7 @@ import { getDataAPI } from "../../utils/fetchData";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import UserCard from "../UserCard";
 import HourglassTopRoundedIcon from "@mui/icons-material/HourglassTopRounded";
+import SearchIcon from "../../icons/SearchIcon";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -36,18 +37,37 @@ const Search = () => {
   };
 
   return (
-    <form className="search_form" onSubmit={handleSearch}>
-      <input
-        type="text"
-        name="search"
-        value={search}
-        className="search-input"
-        title="Enter to Search"
-        onChange={(e) =>
-          setSearch(e.target.value.toLowerCase().replace(/ /g, ""))
-        }
-        placeholder="type something..."
-      />
+    <>
+      <form className="search_form" onSubmit={handleSearch}>
+        <input
+          type="text"
+          name="search"
+          value={search}
+          className="search-input"
+          title="Enter to Search"
+          onChange={async (e) => {
+            setSearch(e.target.value.toLowerCase().replace(/ /g, ""));
+
+            const res = await getDataAPI(
+              `search?username=${search}`,
+              auth?.token
+            );
+            setUsers(res.data.users);
+            if (search.length <= 1) setUsers([]);
+          }}
+          placeholder="type something..."
+        />
+
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+          }}
+        >
+          <SearchIcon />
+        </button>
+      </form>
 
       <div style={{ margin: "20px 0" }}>
         <h3
@@ -60,10 +80,6 @@ const Search = () => {
         </h3>
       </div>
 
-      <button type="submit" style={{ display: "none" }}>
-        Search
-      </button>
-
       {load && (
         <HourglassTopRoundedIcon
           sx={{ color: theme ? "#000" : "rgb(243,243,247)" }}
@@ -73,15 +89,10 @@ const Search = () => {
       <div className="users">
         {search &&
           users.map((user) => (
-            <UserCard
-              key={user?._id}
-              user={user}
-              border="border"
-              handleClose={handleClose}
-            />
+            <UserCard key={user?._id} user={user} handleClose={handleClose} />
           ))}
       </div>
-    </form>
+    </>
   );
 };
 

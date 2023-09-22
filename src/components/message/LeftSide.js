@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import UserCard from "../UserCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getDataAPI } from "../../utils/fetchData";
-import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   MESS_TYPES,
   getConversations,
 } from "../../redux/actions/messageAction";
 import CircleRoundedIcon from "@mui/icons-material/CircleRounded";
+import SearchIcon from "../../icons/SearchIcon";
+import { Box } from "@mui/material";
 
 const LeftSide = () => {
   const { auth, message, online, theme } = useSelector((state) => state);
@@ -23,20 +24,22 @@ const LeftSide = () => {
   const pageEnd = useRef();
   const [page, setPage] = useState(0);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!search) return setSearchUsers([]);
+  // const handleSearch = async (e) => {
+  //   debugger;
+  //   e.preventDefault();
+  //   if (!search) return setSearchUsers([]);
 
-    try {
-      const res = await getDataAPI(`search?username=${search}`, auth?.token);
-      setSearchUsers(res.data.users);
-    } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { error: err.response.data.msg },
-      });
-    }
-  };
+  //   try {
+  //     const res = await getDataAPI(`search?username=${search}`, auth?.token);
+  //     setSearchUsers(res.data.users);
+  //     console.log(searchUsers);
+  //   } catch (err) {
+  //     dispatch({
+  //       type: GLOBALTYPES.ALERT,
+  //       payload: { error: err.response.data.msg },
+  //     });
+  //   }
+  // };
 
   const handleAddUser = (user) => {
     setSearch("");
@@ -90,63 +93,89 @@ const LeftSide = () => {
 
   return (
     <>
-      <form className="message_header" onSubmit={() => handleSearch}>
+      <form className="message_header">
         <input
           type="text"
           value={search}
           placeholder="Enter to Search..."
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={async (e) => {
+            setSearch(e.target.value);
+
+            const res = await getDataAPI(
+              `search?username=${search}`,
+              auth?.token
+            );
+            setSearchUsers(res.data.users);
+            if (search.length <= 1) setSearchUsers([]);
+          }}
         />
 
-        <button type="submit" style={{ display: "none" }}>
-          Search
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            paddingTop: 10,
+            paddingRight: 10,
+          }}
+        >
+          <SearchIcon />
         </button>
       </form>
 
       <div className="message_chat_list">
-        {searchUsers.length !== 0 ? (
-          <>
-            {searchUsers.map((user) => (
-              <div
-                key={user._id}
-                className={`message_user ${isActive(user)}`}
-                onClick={() => handleAddUser(user)}
-              >
-                <UserCard user={user} />
-              </div>
-            ))}
-          </>
-        ) : (
-          <>
-            {message.users.map((user) => (
-              <div
-                key={user._id}
-                className={`message_user ${isActive(user)}`}
-                onClick={() => handleAddUser(user)}
-              >
-                <UserCard user={user} msg={true}>
-                  {user.online ? (
-                    <CircleRoundedIcon
-                      sx={{ color: "green", fontSize: "small", ml: 1 }}
-                    />
-                  ) : (
-                    auth?.user.following.find(
-                      (item) => item._id === user._id
-                    ) && (
-                      <CircleRoundedIcon
-                        sx={{
-                          color: theme ? "#999999" : "white",
-                          fontSize: "small",
-                          ml: 1,
-                        }}
-                      />
-                    )
-                  )}
-                </UserCard>
-              </div>
-            ))}
-          </>
-        )}
+        {searchUsers.length !== 0
+          ? search && (
+              <>
+                {searchUsers.map((user) => (
+                  <Box
+                    sx={{
+                      backgroundColor: theme
+                        ? "rgb(255,255,255, 0.5)"
+                        : "rgb(30,30,30)",
+                      borderRadius: "12px",
+
+                      marginBottom: "4px",
+                    }}
+                    key={user._id}
+                    className={`message_user ${isActive(user)}`}
+                    onClick={() => handleAddUser(user)}
+                  >
+                    <UserCard user={user} />
+                  </Box>
+                ))}
+              </>
+            )
+          : search === "" && (
+              <>
+                {message.users.map((user) => (
+                  <div
+                    key={user._id}
+                    className={`message_user ${isActive(user)}`}
+                    onClick={() => handleAddUser(user)}
+                  >
+                    <UserCard user={user} msg={true}>
+                      {user.online ? (
+                        <CircleRoundedIcon
+                          sx={{ color: "green", fontSize: "small", ml: 1 }}
+                        />
+                      ) : (
+                        auth?.user.following.find(
+                          (item) => item._id === user._id
+                        ) && (
+                          <CircleRoundedIcon
+                            sx={{
+                              color: theme ? "#999999" : "white",
+                              fontSize: "small",
+                              ml: 1,
+                            }}
+                          />
+                        )
+                      )}
+                    </UserCard>
+                  </div>
+                ))}
+              </>
+            )}
 
         <button ref={pageEnd} style={{ opacity: 0, color: "#777777" }}>
           Load More

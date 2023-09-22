@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getDiscoverPosts,
@@ -15,16 +15,11 @@ import SwitchIcon from "../icons/SwitchIcon";
 import { Link } from "react-router-dom";
 
 const Discover = () => {
-  const { auth, discover } = useSelector((state) => state);
+  const { auth, discover, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [load, setLoad] = useState(false);
-
-  useEffect(() => {
-    if (discover.firstLoad === false) {
-      dispatch(getDiscoverPosts(auth?.token));
-    }
-  }, [dispatch, auth?.token, discover?.firstLoad]);
+  const [hidden, setHidden] = useState(true);
 
   const handleLoadMore = async () => {
     setLoad(true);
@@ -36,6 +31,11 @@ const Discover = () => {
     setLoad(false);
   };
 
+  const handleDiscover = async () => {
+    dispatch(getDiscoverPosts(auth.token));
+    setHidden(false);
+  };
+
   return (
     <div className="d-flex">
       <div className="col-md-2 px-0 d-none d-md-block">
@@ -43,17 +43,34 @@ const Discover = () => {
       </div>
       <div className="col-md-1 d-none d-md-block" />
       <div className="col-md-5 col-12 feed ">
+        {!discover.firstLoad && (
+          <button
+            className="btn action-btn m-auto d-block"
+            onClick={handleDiscover}
+            de
+          >
+            Discover
+          </button>
+        )}
         {discover.loading ? (
           <HourglassEmptyIcon />
         ) : discover.result === 0 ? (
-          <p>Nothing to see here</p>
+          <div className="d-flex justify-content-center">
+            <h6 style={{ color: theme ? "rgb(16,16,16)" : "rgb(243,243,247)" }}>
+              Nothing to see here
+            </h6>
+          </div>
         ) : (
           discover.posts?.map((post) => <PostCard key={post._id} post={post} />)
         )}
 
-        {load && <HourglassTopRoundedIcon sx={{ color: "rgb(243,243,247)" }} />}
+        {load && (
+          <HourglassTopRoundedIcon
+            sx={{ color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)" }}
+          />
+        )}
 
-        {!discover.loading && (
+        {!discover.loading && !hidden && (
           <LoadMoreBtn
             result={discover.result}
             page={discover.page}
@@ -76,8 +93,7 @@ const Discover = () => {
           </div>
         </Link>
       </div>
-      <div className="col-md-1 d-none d-md-block" />
-      <div className="col-md-3 d-none d-md-block feed">
+      <div className="col-md-4 d-none d-md-block feed">
         <RightSideBar />
       </div>
     </div>

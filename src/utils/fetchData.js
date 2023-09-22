@@ -3,11 +3,11 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 export const apiService = axios.create({
-  baseURL: "https://backend-final-project-fcdf.onrender.com",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
-//http://localhost:5000
+//https://backend-final-project-fcdf.onrender.com
 
 export const getDataAPI = async (url, token) => {
   const res = await apiService.get(`/api/${url}`, {

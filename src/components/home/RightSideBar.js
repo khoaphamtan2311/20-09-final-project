@@ -13,7 +13,7 @@ const RightSideBar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="mt-3 pr-5">
+    <div>
       <UserCard user={auth?.user} />
 
       <div className="d-flex justify-content-between align-items-center my-2">

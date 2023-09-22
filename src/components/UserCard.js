@@ -38,7 +38,7 @@ const UserCard = ({
       <div
         className={`user-card d-flex p-3 pl-4 align-items-center justify-content-between w-auto ${border}`}
       >
-        <div>
+        <div style={{ maxWidth: "50%", overflow: "hidden" }}>
           <Link
             to={`/profile/${user?._id}`}
             onClick={handleCloseAll}
@@ -69,7 +69,6 @@ const UserCard = ({
             </div>
           </Link>
         </div>
-
         {children}
       </div>
       <div className="d-flex justify-content-end">

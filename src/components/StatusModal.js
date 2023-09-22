@@ -92,7 +92,6 @@ const StatusModal = () => {
             placeholder={`@${auth?.user?.username}, what is on your mind?`}
             onChange={(e) => setContent(e.target.value)}
             style={{
-              filter: theme ? "invert(0)" : "invert(1)",
               color: theme ? "#111" : "white",
               background: theme ? "" : "rgba(0,0,0,.01)",
             }}

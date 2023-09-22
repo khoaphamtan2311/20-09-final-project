@@ -77,8 +77,8 @@ const Profile = () => {
           </>
         )}
       </div>
-      <div className="col-md-1 d-none d-md-block" />
-      <div className="col-md-3 d-none d-md-block feed">
+
+      <div className="col-md-4 d-none d-md-block feed">
         <RightSideBar />
       </div>
     </div>

@@ -11,7 +11,7 @@ export const getDiscoverPosts = (token) => async (dispatch) => {
   try {
     dispatch({ type: DISCOVER_TYPES.LOADING, payload: true });
 
-    const res = await getDataAPI(`post_discover`, token);
+    const res = await getDataAPI(`post_discover?num=9`, token);
     if (!res)
       dispatch({
         type: GLOBALTYPES.ALERT,

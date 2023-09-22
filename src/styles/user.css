@@ -18,3 +18,7 @@
 .user-link span {
   font-size: 15px;
 }
+
+.users .user-card div {
+  max-width: 100% !important;
+}

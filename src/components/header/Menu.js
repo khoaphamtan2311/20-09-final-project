@@ -28,7 +28,12 @@ const Menu = () => {
     {
       label: "Message",
       icon: (
-        <NearMeRoundedIcon sx={{ color: "rgb(243,243,247)", fontSize: 30 }} />
+        <NearMeRoundedIcon
+          sx={{
+            color: theme ? "rgb(119,119,119)" : "rgb(243,243,247)",
+            fontSize: 30,
+          }}
+        />
       ),
       path: "/message",
     },
@@ -60,39 +65,34 @@ const Menu = () => {
           </li>
         ))}
 
-        <li style={{ opacity: 1 }} onClick={handleClickOpen}>
-          <span
-            className="nav-link position-relative"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <IconButton
-              sx={{
-                color: "rgb(243,243,247)",
-                paddingTop: 0,
-                border: "none",
-              }}
-            >
-              <FavoriteBorderRoundedIcon sx={{ fontSize: 30 }} />
-            </IconButton>
-
-            <span className="notify_length">{notify?.data?.length}</span>
-          </span>
-          <Dialog
-            open={open}
-            onClose={handleClose}
+        <span
+          className="nav-link position-relative"
+          role="button"
+          onClick={handleClickOpen}
+        >
+          <IconButton
             sx={{
-              "& .MuiDialog-paper": {
-                borderRadius: "20px",
-                backgroundColor: "rgb(30,30,30)",
-              },
+              color: theme ? "rgb(119, 119, 119)" : "rgb(243,243,247)",
+              paddingTop: 0,
+              border: "none",
             }}
           >
-            <NotifyModal />
-          </Dialog>
-        </li>
+            <FavoriteBorderRoundedIcon sx={{ fontSize: 30 }} />
+            <span className="notify_length">{notify?.data?.length}</span>
+          </IconButton>
+        </span>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          sx={{
+            "& .MuiDialog-paper": {
+              borderRadius: "20px",
+              backgroundColor: theme ? "rgb(255,255,255)" : "rgb(30,30,30)",
+            },
+          }}
+        >
+          <NotifyModal />
+        </Dialog>
 
         <li className="nav-item dropdown" style={{ opacity: 1 }}>
           <Dropdown>
@@ -109,13 +109,16 @@ const Menu = () => {
               sx={{
                 borderRadius: "20px",
                 border: "none",
-                backgroundColor: "rgb(16,16,16)",
+                backgroundColor: theme ? "rgb(255,255,255)" : "rgb(16,16,16)",
               }}
             >
               <MenuItem>
                 <Link
                   className="dropdown-item link-hover"
                   to={`/profile/${auth?.user?._id}`}
+                  style={{
+                    color: theme ? "rgb(16,16,16)" : "rgb(243,243,247)",
+                  }}
                 >
                   Profile
                 </Link>
@@ -130,6 +133,9 @@ const Menu = () => {
                       payload: !theme,
                     })
                   }
+                  style={{
+                    color: theme ? "rgb(16,16,16)" : "rgb(243,243,247)",
+                  }}
                 >
                   {theme ? "Dark mode" : "Light mode"}
                 </label>
@@ -139,6 +145,9 @@ const Menu = () => {
                   className="dropdown-item link-hover"
                   to="/"
                   onClick={() => dispatch(logout())}
+                  style={{
+                    color: theme ? "rgb(16,16,16)" : "rgb(243,243,247)",
+                  }}
                 >
                   Logout
                 </Link>

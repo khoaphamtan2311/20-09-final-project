@@ -22,7 +22,6 @@
   flex: 1 1 0%;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 0 1.5rem;
 }
 
 .left-side-bar .tabs-contain ul {
@@ -40,7 +39,7 @@
   text-align: start;
 }
 
-.left-side-bar .tabs-contain .links:hover {
+.left-side-bar .tabs-contain li a div:hover {
   border-radius: 12px;
   background-color: var(--tabs-hover);
 }

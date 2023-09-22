@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getPost } from "../../redux/actions/postAction";
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded';
+import HourglassTopRoundedIcon from "@mui/icons-material/HourglassTopRounded";
 import PostCard from "../../components/PostCard";
 import InputComment from "../../components/home/InputComment";
 import Comments from "../../components/home/Comments";
@@ -22,7 +22,7 @@ const Post = () => {
       setPost(newArr);
     }
   }, [detailPost, dispatch, id, auth]);
-
+  console.log(post);
   return (
     <div className="d-flex">
       <div className="col-md-3"></div>
@@ -32,13 +32,14 @@ const Post = () => {
             <HourglassTopRoundedIcon sx={{ color: "rgb(243,243,247)" }} />
           )}
 
-          {post.map((item) => (
-            <>
-              <PostCard key={item._id} post={item} />
-              <InputComment post={item} />
-              <Comments post={item} />
-            </>
-          ))}
+          {post.length !== 0 &&
+            post.map((item) => (
+              <div key={item._id}>
+                <PostCard key={item._id} post={item} />
+                <InputComment post={item} />
+                <Comments post={item} />
+              </div>
+            ))}
         </div>
       </div>
       <div className="col-md-4"></div>

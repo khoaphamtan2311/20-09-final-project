@@ -14,7 +14,7 @@ import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsAct
 import NotificationsOffRoundedIcon from "@mui/icons-material/NotificationsOffRounded";
 
 const NotifyModal = () => {
-  const { auth, notify } = useSelector((state) => state);
+  const { auth, notify, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const handleIsRead = (msg) => {
@@ -42,7 +42,7 @@ const NotifyModal = () => {
     <div
       style={{
         minWidth: "200px",
-        backgroundColor: "rgb(30,30,30)",
+        backgroundColor: theme ? "rgb(255,255,255)" : "rgb(30,30,30)",
       }}
     >
       <div className="d-flex justify-content-between align-items-center px-3">
@@ -50,7 +50,7 @@ const NotifyModal = () => {
           style={{
             fontWeight: 700,
             padding: "10px 0",
-            color: "rgb(243,243,247)",
+            color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)",
           }}
         >
           Notification
@@ -58,12 +58,14 @@ const NotifyModal = () => {
         {notify.sound ? (
           <IconButton onClick={handleSound}>
             <NotificationsActiveRoundedIcon
-              sx={{ color: "rgb(243,243,247)" }}
+              sx={{ color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)" }}
             />
           </IconButton>
         ) : (
           <IconButton onClick={handleSound}>
-            <NotificationsOffRoundedIcon sx={{ color: "rgb(243,243,247)" }} />
+            <NotificationsOffRoundedIcon
+              sx={{ color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)" }}
+            />
           </IconButton>
         )}
       </div>
@@ -73,9 +75,14 @@ const NotifyModal = () => {
       />
 
       {notify.data.length === 0 && (
-        <h3 style={{ color: "rgb(243,243,247)", padding: "0 20px" }}>
+        <h5
+          style={{
+            color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)",
+            padding: "0 20px",
+          }}
+        >
           Nothing to see here!
-        </h3>
+        </h5>
       )}
 
       <div
@@ -96,7 +103,7 @@ const NotifyModal = () => {
 
               <div
                 className="mx-2 flex-fill"
-                style={{ color: "rgb(243,243,247)" }}
+                style={{ color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)" }}
               >
                 <div>
                   <strong className="mr-1">@{msg.user?.username}</strong>
@@ -120,7 +127,7 @@ const NotifyModal = () => {
               {!msg.isRead && (
                 <CircleIcon
                   sx={{
-                    color: "rgb(243,243,247)",
+                    color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)",
                     fontSize: "small",
                     marginLeft: "10px",
                     marginTop: "5px",
@@ -137,7 +144,7 @@ const NotifyModal = () => {
         className="text-right mr-2"
         style={{
           cursor: "pointer",
-          color: "rgb(243,243,247)",
+          color: theme ? "rgb(30,30,30)" : "rgb(243,243,247)",
           padding: "20px 10px",
         }}
         onClick={handleDeleteAll}

@@ -207,3 +207,11 @@
 .chat_input .dropdown-menu {
   transform: translate3d(-110px, -200px, 0px) !important;
 }
+.message_chat_list .message_user .user-card div {
+  max-width: 100% !important;
+}
+
+.message_header .user-card div {
+  max-width: 100% !important;
+  min-width: 150px;
+}

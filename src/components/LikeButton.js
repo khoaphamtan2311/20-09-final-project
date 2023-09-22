@@ -6,7 +6,6 @@ import { IconButton } from "@mui/material";
 
 const LikeButton = ({ isLike, handleLike, handleUnLike }) => {
   const { theme } = useSelector((state) => state);
-  console.log("theme", theme);
 
   return (
     <>

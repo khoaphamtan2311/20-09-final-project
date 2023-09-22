@@ -214,3 +214,7 @@ input:focus {
   fill: var(--color-icon) !important;
   stroke: var(--color-icon) !important;
 }
+
+.col-md-4 .user-card div {
+  max-width: 100% !important;
+}

@@ -60,8 +60,8 @@ const Home = () => {
         </Link>
       </div>
 
-      <div className="col-md-1" />
-      <div className="col-md-3 feed">
+      {/* <div className="col-md-1" /> */}
+      <div className="col-md-4 d-none d-md-block feed">
         <RightSideBar />
       </div>
     </div>
