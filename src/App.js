@@ -25,6 +25,8 @@ import Peer from "peerjs";
 import MainLayout from "./layouts/MainLayout";
 import BlankLayout from "./layouts/BlankLayout";
 import NotFound from "./components/NotFound";
+import { getDiscoverPosts } from "./redux/actions/discoverAction";
+import Loading from "./components/alert/Loading";
 
 function App() {
   const { auth } = useSelector((state) => state);
@@ -43,6 +45,7 @@ function App() {
       dispatch(getPosts(auth?.token));
       dispatch(getSuggestions(auth?.token));
       dispatch(getNotifies(auth?.token));
+      dispatch(getDiscoverPosts(auth?.token));
     }
   }, [dispatch, auth?.token]);
 
@@ -69,7 +72,8 @@ function App() {
 
   function AuthRequire({ children }) {
     const location = useLocation();
-
+    const { auth } = useSelector((state) => state);
+    if (!auth.isInitialized) return <Loading />;
     if (!auth.token) {
       return <Navigate to="/login" state={{ from: location }} replace />;
     }

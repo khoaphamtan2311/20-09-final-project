@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getDiscoverPosts,
-  DISCOVER_TYPES,
-} from "../redux/actions/discoverAction";
+import { DISCOVER_TYPES } from "../redux/actions/discoverAction";
 import HourglassTopRoundedIcon from "@mui/icons-material/HourglassTopRounded";
 import LoadMoreBtn from "../components/LoadMoreBtn";
 import { getDataAPI } from "../utils/fetchData";
@@ -19,7 +16,6 @@ const Discover = () => {
   const dispatch = useDispatch();
 
   const [load, setLoad] = useState(false);
-  const [hidden, setHidden] = useState(true);
 
   const handleLoadMore = async () => {
     setLoad(true);
@@ -31,11 +27,6 @@ const Discover = () => {
     setLoad(false);
   };
 
-  const handleDiscover = async () => {
-    dispatch(getDiscoverPosts(auth.token));
-    setHidden(false);
-  };
-
   return (
     <div className="d-flex">
       <div className="col-md-2 px-0 d-none d-md-block">
@@ -43,15 +34,6 @@ const Discover = () => {
       </div>
       <div className="col-md-1 d-none d-md-block" />
       <div className="col-md-5 col-12 feed ">
-        {!discover.firstLoad && (
-          <button
-            className="btn action-btn m-auto d-block"
-            onClick={handleDiscover}
-            de
-          >
-            Discover
-          </button>
-        )}
         {discover.loading ? (
           <HourglassEmptyIcon />
         ) : discover.result === 0 ? (
@@ -70,7 +52,7 @@ const Discover = () => {
           />
         )}
 
-        {!discover.loading && !hidden && (
+        {!discover.loading && (
           <LoadMoreBtn
             result={discover.result}
             page={discover.page}

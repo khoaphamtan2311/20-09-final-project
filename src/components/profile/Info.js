@@ -60,7 +60,9 @@ const Info = ({ id, auth, profile, dispatch, theme }) => {
 
             <h4 style={{ color: theme ? "#999999" : "#777777" }}>
               @{user.username}{" "}
-              <span className="text-danger">{user.mobile}</span>
+              <span style={{ color: theme ? "#999999" : "#777777" }}>
+                | {user.mobile}
+              </span>
             </h4>
 
             <div className="follow_btn mt-3 d-flex justify-content-start">

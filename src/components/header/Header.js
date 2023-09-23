@@ -35,7 +35,7 @@ const Header = () => {
             className="navbar-brand text-uppercase p-0 m-0 text-center ml-5 pl-5"
             onClick={() => window.scrollTo({ top: 0 })}
           >
-            Gists
+            Gist
           </h3>
         </Link>
 

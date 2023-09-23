@@ -40,12 +40,19 @@ export const refreshToken = () => async (dispatch) => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
     try {
+      dispatch({
+        type: GLOBALTYPES.AUTH,
+        payload: {
+          isInitialized: false,
+        },
+      });
       const res = await postDataAPI("refresh_token");
       dispatch({
         type: GLOBALTYPES.AUTH,
         payload: {
           token: res.data.access_token,
           user: res.data.user,
+          isInitialized: true,
         },
       });
 

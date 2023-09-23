@@ -23,11 +23,18 @@ export const imageUpload = async (images) => {
       formData.append("file", item);
     }
 
-    formData.append("upload_preset", "gist-upload");
-    formData.append("cloud_name", "djwwymlhz");
+    formData.append(
+      "upload_preset",
+      process.env.CLOUDINARY_UPLOAD_PRESET || "gist-upload"
+    );
+    formData.append(
+      "cloud_name",
+      process.env.CLOUDINARY_CLOUD_NAME || "djwwymlhz"
+    );
 
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/djwwymlhz/upload",
+      process.env.CLOUDINARY_URL ||
+        "https://api.cloudinary.com/v1_1/djwwymlhz/upload",
       {
         method: "POST",
         body: formData,
