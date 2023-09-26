@@ -12,6 +12,7 @@ export const login = (data) => async (dispatch) => {
       payload: {
         token: res.data.access_token,
         user: res.data.user,
+        isInitialized: true,
       },
     });
     localStorage.setItem("firstLogin", true);
@@ -82,6 +83,7 @@ export const register = (data) => async (dispatch) => {
       payload: {
         token: res.data.access_token,
         user: res.data.user,
+        isInitialized: true,
       },
     });
 
@@ -131,6 +133,13 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem("firstLogin");
     await postDataAPI("logout");
     window.location.href = "/";
+
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        isInitialized: true,
+      },
+    });
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

@@ -33,6 +33,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({ type: GLOBALTYPES.AUTH, payload: { isInitialized: true } });
     dispatch(refreshToken());
 
     const socket = io("https://backend-final-project-fcdf.onrender.com");
