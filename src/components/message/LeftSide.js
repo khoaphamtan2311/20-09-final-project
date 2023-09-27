@@ -10,6 +10,7 @@ import {
 import CircleRoundedIcon from "@mui/icons-material/CircleRounded";
 import SearchIcon from "../../icons/SearchIcon";
 import { Box } from "@mui/material";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 
 const LeftSide = () => {
   const { auth, message, online, theme } = useSelector((state) => state);
@@ -24,22 +25,22 @@ const LeftSide = () => {
   const pageEnd = useRef();
   const [page, setPage] = useState(0);
 
-  // const handleSearch = async (e) => {
-  //   debugger;
-  //   e.preventDefault();
-  //   if (!search) return setSearchUsers([]);
+  const handleSearch = async (e) => {
+    debugger;
+    e.preventDefault();
+    if (!search) return setSearchUsers([]);
 
-  //   try {
-  //     const res = await getDataAPI(`search?username=${search}`, auth?.token);
-  //     setSearchUsers(res.data.users);
-  //     console.log(searchUsers);
-  //   } catch (err) {
-  //     dispatch({
-  //       type: GLOBALTYPES.ALERT,
-  //       payload: { error: err.response.data.msg },
-  //     });
-  //   }
-  // };
+    try {
+      const res = await getDataAPI(`search?username=${search}`, auth?.token);
+      setSearchUsers(res.data.users);
+      console.log(searchUsers);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
+    }
+  };
 
   const handleAddUser = (user) => {
     setSearch("");
@@ -93,7 +94,7 @@ const LeftSide = () => {
 
   return (
     <>
-      <form className="message_header">
+      <form className="message_header" onSubmit={handleSearch}>
         <input
           type="text"
           value={search}
@@ -111,6 +112,7 @@ const LeftSide = () => {
         />
 
         <button
+          type="submit"
           style={{
             backgroundColor: "transparent",
             border: "none",
