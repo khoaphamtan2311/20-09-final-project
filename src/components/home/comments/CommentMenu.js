@@ -4,7 +4,7 @@ import { deleteComment } from "../../../redux/actions/commentAction";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 
 const CommentMenu = ({ post, comment, setOnEdit }) => {
-  const { auth, socket } = useSelector((state) => state);
+  const { auth, socket, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const handleRemove = () => {
@@ -38,9 +38,14 @@ const CommentMenu = ({ post, comment, setOnEdit }) => {
             className="material-icons"
             id="moreLink"
             data-toggle="dropdown"
-            style={{ color: "rgb(243,243,247)", fontSize: "large" }}
+            style={{
+              color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)",
+              fontSize: "large",
+            }}
           >
-            <MoreVertRoundedIcon />
+            <MoreVertRoundedIcon
+              sx={{ color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)" }}
+            />
           </span>
 
           <div className="dropdown-menu" aria-labelledby="moreLink">

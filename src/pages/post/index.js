@@ -19,7 +19,7 @@ const Post = () => {
 
     if (detailPost.length > 0) {
       const newArr = detailPost.filter((post) => post._id === id);
-      setPost(newArr);
+      setPost(newArr.slice(0, 1));
     }
   }, [detailPost, dispatch, id, auth]);
   return (

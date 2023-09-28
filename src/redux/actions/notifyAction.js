@@ -19,6 +19,7 @@ export const createNotify =
   ({ msg, auth, socket }) =>
   async (dispatch) => {
     try {
+      debugger;
       const res = await postDataAPI("notify", msg, auth?.token);
 
       socket.emit("createNotify", {

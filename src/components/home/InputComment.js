@@ -36,7 +36,7 @@ const InputComment = ({ children, post, onReply, setOnReply }) => {
     <form
       className="card-footer comment_input"
       onSubmit={handleSubmit}
-      style={{ border: "none" }}
+      style={{ border: "none", backgroundColor: "transparent" }}
     >
       {children}
       <input

@@ -15,6 +15,7 @@ export const createComment =
     dispatch({ type: POST_TYPES.UPDATE_POST, payload: newPost });
 
     try {
+      debugger;
       const data = {
         ...newComment,
         postId: post._id,

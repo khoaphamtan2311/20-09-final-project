@@ -84,7 +84,10 @@ const CommentCard = ({ children, comment, post, commentId }) => {
           <h6 className="m-0">
             <Link
               to={`/profile/${comment?.user?._id}`}
-              style={{ color: "rgb(243,243,247)", textDecoration: "none" }}
+              style={{
+                color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)",
+                textDecoration: "none",
+              }}
             >
               {comment?.user?.username}
             </Link>
@@ -99,8 +102,7 @@ const CommentCard = ({ children, comment, post, commentId }) => {
         <div
           className="flex-fill"
           style={{
-            filter: theme ? "invert(1)" : "invert(0)",
-            color: theme ? "#111" : "white",
+            color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)",
           }}
         >
           {onEdit ? (
@@ -109,7 +111,9 @@ const CommentCard = ({ children, comment, post, commentId }) => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               style={{
-                backgroundColor: "rgb(30,30,30)",
+                backgroundColor: theme
+                  ? "rgb(243,243,247,0.4)"
+                  : "rgb(30,30,30)",
                 borderRadius: "12px",
                 padding: "10px 20px",
                 color: "#777777",
@@ -121,7 +125,7 @@ const CommentCard = ({ children, comment, post, commentId }) => {
                 <Link
                   to={`/profile/${comment.tag._id}`}
                   className="mr-1"
-                  style={{ color: "rgb(243,243,247)" }}
+                  style={{ color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)" }}
                 >
                   @{comment.tag.username}
                 </Link>
@@ -194,7 +198,7 @@ const CommentCard = ({ children, comment, post, commentId }) => {
           <Link
             to={`/profile/${onReply.user._id}`}
             className="mr-1"
-            style={{ color: "rgb(243,243,247)" }}
+            style={{ color: theme ? "rgb(0,0,0)" : "rgb(243,243,247)" }}
           >
             @{onReply.user.username}:
           </Link>
