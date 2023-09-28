@@ -33,7 +33,6 @@ const LeftSide = () => {
     try {
       const res = await getDataAPI(`search?username=${search}`, auth?.token);
       setSearchUsers(res.data.users);
-      console.log(searchUsers);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

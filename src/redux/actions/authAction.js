@@ -41,12 +41,7 @@ export const refreshToken = () => async (dispatch) => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
     try {
-      dispatch({
-        type: GLOBALTYPES.AUTH,
-        payload: {
-          isInitialized: false,
-        },
-      });
+      dispatch({ type: GLOBALTYPES.AUTH, payload: { isInitialized: false } });
       const res = await postDataAPI("refresh_token");
       dispatch({
         type: GLOBALTYPES.AUTH,
@@ -130,16 +125,15 @@ export const validateResetToken =
 
 export const logout = () => async (dispatch) => {
   try {
-    localStorage.removeItem("firstLogin");
-    await postDataAPI("logout");
-    window.location.href = "/";
-
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
         isInitialized: true,
       },
     });
+    localStorage.removeItem("firstLogin");
+    await postDataAPI("logout");
+    window.location.href = "/";
   } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,

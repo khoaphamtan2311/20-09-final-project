@@ -151,8 +151,8 @@ export const follow =
       const msg = {
         id: auth?.user._id,
         text: "has started to follow you.",
-        recipients: [newUser._id],
-        url: `/profile/${auth?.user._id}`,
+        recipients: [newUser?._id],
+        url: `/profile/${auth?.user?._id}`,
       };
 
       dispatch(createNotify({ msg, auth, socket }));
