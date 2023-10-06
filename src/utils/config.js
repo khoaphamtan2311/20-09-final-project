@@ -1,1 +1,1 @@
-export const BASE_URL = "https://frontend-final-project.onrender.com";
+export const BASE_URL = "https://gistonline.netlify.app";
