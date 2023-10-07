@@ -108,6 +108,12 @@ export const updatePassword =
     let body = { token, password };
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+      dispatch({
+        type: GLOBALTYPES.AUTH,
+        payload: {
+          isInitialized: true,
+        },
+      });
       await patchDataAPI("reset_password", body);
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
